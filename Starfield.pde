@@ -5,7 +5,7 @@ public void setup()
 	//background(0,0,0);
 	int addP = 0;
 	
-	field = new Particle[10000 + addP];
+	field = new Particle[1000 + addP];
 	for(int p = 0; p < field.length; p++)
 	{
 		field[p] = new NormalParticle();
