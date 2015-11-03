@@ -24,26 +24,38 @@ public void draw()
 }
 class NormalParticle implements Particle
 {
-	float xPos, yPos, pSize, speed;
+	float xPos, yPos, pSize, speed, dirX, dirY;
 	double  angle;
 	int pColor;
 	NormalParticle()
 	{
-		pSize = 0.5+ (float)(Math.sin(angle)*speed);;
+		pSize = 0.85;
 		xPos = (float)(Math.random()*500);
 		yPos = (float)(Math.random()*500);
 		angle = Math.PI*2*Math.random();
 		speed = 1;
+		dirX = (float)(Math.cos(angle)*speed);
+		dirY = (float)(Math.sin(angle)*speed);
 		pColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 	}
 	public void move()
 	{
-		xPos = xPos + (float)(Math.cos(angle)*speed);
-		yPos = yPos + (float)(Math.sin(angle)*speed);
+		xPos = xPos + dirX;
+		yPos = yPos + dirY;
 		if(xPos > 500 || xPos < 0 || yPos > 500 || yPos < 0)
 		{
+			angle = Math.PI*2*Math.random();
+			dirX = (float)(Math.cos(angle)*speed);
+			dirY = (float)(Math.sin(angle)*speed);
 			xPos = mouseX;
 			yPos = mouseY;
+		}
+		if(mousePressed)
+		{
+			if(xPos > mouseX+350 || xPos < mouseX-350 || yPos > mouseY+350 || yPos < mouseY-350)
+			{
+				rotate(7);
+			}
 		}
 	}
 	public void show()
