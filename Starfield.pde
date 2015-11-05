@@ -5,10 +5,21 @@ public void setup()
 	//background(0,0,0);
 	int addP = 0;
 	
-	field = new Particle[1000 + addP];
+	field = new Particle[1500 + addP];
 	for(int p = 0; p < field.length; p++)
 	{
 		field[p] = new NormalParticle();
+		field[1] = new OddballParticle(); 
+		field[2] = new JumboParticle();
+		field[3] = new JumboParticle();
+		field[4] = new JumboParticle();
+		field[5] = new JumboParticle();
+		field[6] = new JumboParticle();
+		field[7] = new JumboParticle();
+		field[8] = new JumboParticle();
+		field[9] = new JumboParticle();
+		field[10] = new JumboParticle();
+		field[11] = new JumboParticle();
 	}//your code here
 }
 public void draw()
@@ -30,8 +41,8 @@ class NormalParticle implements Particle
 	NormalParticle()
 	{
 		pSize = 0.85;
-		xPos = (float)(Math.random()*500);
-		yPos = (float)(Math.random()*500);
+		xPos = 250;
+		yPos = 250;
 		angle = Math.PI*2*Math.random();
 		speed = 1;
 		dirX = (float)(Math.cos(angle)*speed);
@@ -50,13 +61,18 @@ class NormalParticle implements Particle
 			xPos = mouseX;
 			yPos = mouseY;
 		}
-		if(mousePressed)
+		
+		if(xPos > mouseX || xPos < mouseX || yPos > mouseY || yPos < mouseY)
 		{
-			if(xPos > mouseX+350 || xPos < mouseX-350 || yPos > mouseY+350 || yPos < mouseY-350)
-			{
-				rotate(7);
-			}
+			pSize +=0.0025;
 		}
+		if(xPos==mouseX && yPos==mouseY)
+		{
+			pSize = 0.85;
+
+		}			
+
+		
 	}
 	public void show()
 	{
@@ -72,12 +88,52 @@ interface Particle
 	public void move();
 	public void show();//your code here
 }
-class OddballParticle //uses an interface
+class OddballParticle implements Particle//uses an interface
 {
-	//your code here
+	void move()
+	{
+
+	}
+	void show()
+	{
+		
+	}//your code here
 }
-class JumboParticle //uses inheritance
+class JumboParticle extends NormalParticle//uses inheritance
 {
+	float jumboSize;
+	JumboParticle()
+	{
+		jumboSize = 15*pSize;
+	}
+	void move()
+	{
+		xPos = xPos + dirX;
+		yPos = yPos + dirY;
+		if(xPos > 500 || xPos < 0 || yPos > 500 || yPos < 0)
+		{
+			angle = Math.PI*2*Math.random();
+			dirX = (float)(Math.cos(angle)*speed);
+			dirY = (float)(Math.sin(angle)*speed);
+			xPos = mouseX;
+			yPos = mouseY;
+		}
+		
+		if(xPos > mouseX || xPos < mouseX || yPos > mouseY || yPos < mouseY)
+		{
+			pSize +=0.0025;
+		}
+		if(xPos==mouseX && yPos==mouseY)
+		{
+			pSize = 0.85;
+
+		}			
+	}
+	void show()
+	{
+		fill(pColor);
+		ellipse(xPos, yPos, jumboSize, jumboSize);
+	}
 	//your code here
 }
 
