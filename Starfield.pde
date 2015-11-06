@@ -9,7 +9,9 @@ public void setup()
 	for(int p = 0; p < field.length; p++)
 	{
 		field[p] = new NormalParticle();
-		field[1] = new OddballParticle(); 
+		
+	}//your code here
+	field[1] = new OddballParticle(); 
 		field[2] = new JumboParticle();
 		field[3] = new JumboParticle();
 		field[4] = new JumboParticle();
@@ -20,7 +22,6 @@ public void setup()
 		field[9] = new JumboParticle();
 		field[10] = new JumboParticle();
 		field[11] = new JumboParticle();
-	}//your code here
 }
 public void draw()
 {
@@ -90,15 +91,56 @@ interface Particle
 }
 class OddballParticle implements Particle//uses an interface
 {
-	void move()
+	float oddballX, oddballY, oddballSize, oddballSpeed, dirX, dirY;
+	int oddballColor;
+	double oddballAngle;
+	OddballParticle()
 	{
-
-	}
-	void show()
-	{
+		oddballX = 250;
+		oddballY = 250;
+		oddballAngle = Math.PI*2*Math.random();
+		oddballSpeed = 1;
+		oddballColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+		System.out.println(oddballColor);
+		dirX = (float)(Math.cos(oddballAngle)*oddballSpeed);
+		dirY = (float)(Math.sin(oddballAngle)*oddballSpeed);
+		oddballSize = 50;
+	}	
+		public void move()
+		{
+			dirX = (float)(Math.cos(oddballAngle)*oddballSpeed);
+			dirY = (float)(Math.sin(oddballAngle)*oddballSpeed);
+			oddballX = oddballX + dirX;
+			oddballY = oddballY + dirY;
+			oddballAngle = oddballAngle + .1;
+				
+			if(oddballX > 500 || oddballX < 0 || oddballY > 500 || oddballY < 0)
+			{
+				oddballAngle = Math.PI*2*Math.random();
+				dirX = (float)(Math.cos(oddballAngle)*oddballSpeed);
+				dirY = (float)(Math.sin(oddballAngle)*oddballSpeed);
+				oddballX = mouseX;
+				oddballY = mouseY;
+			}
 		
-	}//your code here
-}
+			if(oddballX > mouseX || oddballX < mouseX || oddballY > mouseY || oddballY < mouseY)
+			{
+				oddballSize +=0.0025;
+
+			}
+			if(oddballX==mouseX && oddballY==mouseY)
+			{
+				oddballSize = 50;
+			}			
+		}
+		public void show()
+		{
+			fill(oddballColor);
+			ellipse(oddballX, oddballY, oddballSize, oddballSize);
+		}//your code here
+	}
+	
+
 class JumboParticle extends NormalParticle//uses inheritance
 {
 	float jumboSize;
