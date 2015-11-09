@@ -101,7 +101,6 @@ class OddballParticle implements Particle//uses an interface
 		oddballAngle = Math.PI*2*Math.random();
 		oddballSpeed = 1;
 		oddballColor = color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
-		System.out.println(oddballColor);
 		dirX = (float)(Math.cos(oddballAngle)*oddballSpeed);
 		dirY = (float)(Math.sin(oddballAngle)*oddballSpeed);
 		oddballSize = 50;
